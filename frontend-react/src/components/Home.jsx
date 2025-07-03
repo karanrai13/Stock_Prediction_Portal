@@ -1,5 +1,6 @@
 // src/components/Home.jsx
 import { Button } from "./../components/UI/button"
+import {Link} from 'react-router-dom'
 
 export default function Home() {
   return (
