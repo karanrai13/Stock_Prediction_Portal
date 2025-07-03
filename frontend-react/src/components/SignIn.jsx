@@ -1,7 +1,12 @@
 // src/components/SignIn.jsx
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Button } from "./../components/UI/button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import axios from './../api/axiosConfig'
+import {AuthContext} from './../components/AuthProvider'
+
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
@@ -10,14 +15,18 @@ export default function SignIn() {
   })
 
   const [error, setError] = useState("")
+  const [loading,setLoading] = useState(false)
+  const navigate = useNavigate()
+  const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     setError("")
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     if (!formData.username || !formData.password) {
       setError("Username and password are required.")
@@ -25,7 +34,41 @@ export default function SignIn() {
     }
 
     // Add login logic here
-    console.log("Logging in with:", formData)
+  try {
+    
+  const response = await axios.post('/token/', {
+    username: formData.username,
+    password: formData.password,
+  })
+  // Save token, redirect, etc.
+
+localStorage.setItem('accessToken',response.data.access)
+localStorage.setItem('refreshToken',response.data.refresh)
+setIsLoggedIn(true)
+
+
+  console.log("✅ Login success:", response.data)
+  navigate('/')
+} catch (err) {
+  const responseErrors = err.response?.data
+
+  if (responseErrors && typeof responseErrors === "object") {
+    const messages = Object.entries(responseErrors)
+      .map(([field, errors]) => `${field}: ${Array.isArray(errors) ? errors.join(" ") : errors}`)
+      .join(" | ")
+
+    setError(messages)
+  } else {
+    setError("Login failed. Please try again.")
+  }
+
+  console.error("❌ Login error:", err.response?.data)
+}finally{
+    setLoading(false)
+}
+
+
+
   }
 
   return (
@@ -61,7 +104,18 @@ export default function SignIn() {
 
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
-        <Button type="submit" className="w-full">Sign In</Button>
+         {
+                    loading ? (
+        
+                        <Button  className="w-full"><FontAwesomeIcon icon={faSpinner} spin /></Button>
+                        
+                    ) : (
+        
+                        <Button type="submit" className="w-full">Sign In</Button>
+                    )
+                }
+
+        
 
         <div className="mt-6 text-center text-sm text-gray-400">
           New to StockVision?{" "}

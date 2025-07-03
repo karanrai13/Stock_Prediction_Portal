@@ -7,13 +7,14 @@ import Footer from './components/Footer'
 import Register from './components/Register'
 import SignIn from './components/SignIn'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
+import AuthProvider from './components/AuthProvider'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <BrowserRouter>
+    <AuthProvider>    <BrowserRouter>
     <Header/>
     <Routes>
       <Route path='/' element={<Home/>}/>
@@ -22,6 +23,8 @@ function App() {
     </Routes>
     <Footer/>
     </BrowserRouter>
+    </AuthProvider>
+
    
     
       
