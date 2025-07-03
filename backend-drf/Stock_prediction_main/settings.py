@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+     #steps -> Model -> Serializer -> views -> urls -> Test with the django Browseable api interface 
+    'accounts',
+    'api',
 ]
 
 MIDDLEWARE = [
