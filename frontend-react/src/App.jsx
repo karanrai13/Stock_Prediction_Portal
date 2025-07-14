@@ -9,6 +9,7 @@ import SignIn from './components/SignIn'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import AuthProvider from './components/AuthProvider'
 import Dashboard from './components/dashboard/Dashboard'
+import PrivateRoute from '../src/PrivateRoute'
 
 function App() {
  
@@ -21,7 +22,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/signin' element={<SignIn/>}/>
-      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/dashboard' element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
     </Routes>
     <Footer/>
     </BrowserRouter>

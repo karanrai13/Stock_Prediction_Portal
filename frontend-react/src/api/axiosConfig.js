@@ -47,7 +47,7 @@ const axiosInstance = axios.create({
         }catch(err){
           localStorage.removeItem('accessToken')
           localStorage.removeItem('refreshToken')
-          window.location.href = '/signin'
+          // window.location.href = '/signin'
         }
 
       }
