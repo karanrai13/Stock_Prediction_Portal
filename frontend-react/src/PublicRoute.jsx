@@ -3,8 +3,8 @@ import {AuthContext} from './components/AuthProvider'
 import {Navigate} from 'react-router-dom'
 
 const PublicRoute = ({children}) => {
-    const { isloggedIn } = useContext(AuthContext)
-    return !isloggedIn ?  (
+    const { isLoggedIn } = useContext(AuthContext)
+    return !isLoggedIn ?  (
         children
     ) : (
         <Navigate to = '/dashboard'/>

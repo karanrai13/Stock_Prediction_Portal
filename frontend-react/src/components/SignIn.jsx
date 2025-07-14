@@ -45,10 +45,8 @@ export default function SignIn() {
 localStorage.setItem('accessToken',response.data.access)
 localStorage.setItem('refreshToken',response.data.refresh)
 setIsLoggedIn(true)
-
-
-  console.log("✅ Login success:", response.data)
-  navigate('/')
+navigate('/dashboard')
+console.log("naviage to dashboard is called")
 } catch (err) {
   const responseErrors = err.response?.data
 

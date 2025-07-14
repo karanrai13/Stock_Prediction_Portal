@@ -3,13 +3,20 @@ import {AuthContext} from './components/AuthProvider'
 import {Navigate} from 'react-router-dom'
 
 const PrivateRoute = ({children}) => {
-    const { isloggedIn } = useContext(AuthContext)
-    return isloggedIn ?  (
+    const { isLoggedIn } = useContext(AuthContext)
+    // console.log("PrivateRoute → isLoggedIn:", isLoggedIn)
+    return isLoggedIn ?  (
         children
     ) : (
-        <Navigate to = '/dashboard'/>
+        <>
+        
+        <Navigate to = '/signin'/>
+        </>
+
     )
  
+    
+
 }
 
 export default PrivateRoute
