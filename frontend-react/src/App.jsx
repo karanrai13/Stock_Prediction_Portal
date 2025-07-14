@@ -8,9 +8,10 @@ import Register from './components/Register'
 import SignIn from './components/SignIn'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import AuthProvider from './components/AuthProvider'
+import Dashboard from './components/dashboard/Dashboard'
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
 
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/signin' element={<SignIn/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}/>
     </Routes>
     <Footer/>
     </BrowserRouter>
